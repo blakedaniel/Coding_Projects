@@ -10,6 +10,7 @@ months = ['Janurary', 'February', 'March', 'April', 'May', 'June',
           'July', 'August', 'September', 'October', 'November', 'December']
 month_chr = months[int(month) - 1]
 
+# html tags needed for creating a bulleted list, bolding text, using paragraph and link formatting,
 list_open = '<ul>'
 list_close = '</ul>'
 bullet_open = '<li>'
@@ -25,7 +26,6 @@ par_open = '<p>'
 par_close = '</p>'
 
 section = ''
-section_opener = div_open + par_open + bold_open + section + bold_close + par_close + list_open
 section_closer = list_close + div_close
 
 monthly_email = open('monthly_email.html', 'w')
