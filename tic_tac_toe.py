@@ -3,6 +3,10 @@
 # import tkinter
 import re
 
+# ER: Global values like the following can sometimes be hard to track well, or
+# really understand how they work. Would it be possible to create a class that
+# stores all these values, and pass that around to functions as necessary?
+# ER: could we create this with a loop, rather than hardcoding all the values?
 board_values = [(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1),
                 (2, 2)]
 player_x_moves = []
@@ -17,6 +21,12 @@ player_square = ''
 
 # list of possible board values, paired with apropriate board string
 board_lst = []
+
+# ER: just a heads up, commented code like this is a little iffy 
+# because it can easily be unclear what purpose it originally served,
+# if it's still necessary, and if it's still correct. Not a big deal
+# for a print statement, but worth keeping in mind especially as things get
+# more complex :)
 
 # print(dir(board_values))
 
@@ -36,7 +46,10 @@ y = -1
 player_turn = 1
 game_count = 1
 
+# ER: need slight cleanup of this comment :) 
 # used to determin if somoen one to end game
+# ER: probably better to use a bool rather than an int for
+# this value
 win = 0
 
 # functions
@@ -50,7 +63,8 @@ def create_board_lst():
 
 # create visual board for playing
 
-
+# ER: does this create a board, or print it out? `display_board() might
+# be a better name for the latter.
 def board():
     # print('Board List', board_lst)
     n3 = (3, 6, 9)
@@ -83,6 +97,10 @@ def player_def():
         player = 'X'
         player_turn -= 1
         player_square = x_square
+    # ER: so the way return works in Python is that it will
+    # immediately exit the function and return the named value.
+    # so I think this will return `player_moves` alone and then
+    # the following three lines will never execute.
     return player_moves
     return player_input
     return player_turn
@@ -111,6 +129,8 @@ def player_move():
         except Exception:
             print(player_input, 'is not a valid choice, please try again')
             continue
+    # ER: since we actually return the player_input here, it probably doesn't need to be global
+    # at all. 
     return player_input
 
 # remove player input from possible board values and add to player list
@@ -118,6 +138,9 @@ def player_move():
 
 def player_placement(player_input):
     placement = player_input
+    # ER: minor point, but: if board_values were a set rather than a list, this remove call would
+    # be more performant. Not a big deal in tic tac toe, but for arbitrarily sized boards it could
+    # matter :)
     board_values.remove(placement)
     # print('Board Values: ', board_values)
     player_moves.append(placement)
@@ -135,6 +158,8 @@ def win_lr(player_moves):
     for move in player_moves:
         x = move[0]
         y = move[1]
+        # ER: this definitely works but I think it's code that we expect to hit the error case 
+        # a majority of times? might be worth thinking about how we can only check valid cases.
         try:
             player_moves.index((x, y + 1))
             player_moves.index((x, y + 2))
@@ -146,7 +171,8 @@ def win_lr(player_moves):
 
 # check if player won from up to down
 
-
+# ER: this code is really similar to the `win_lr` function above. Could we find a way to pull
+# out the duplicate code and reuse it?
 def win_ud(player_moves):
     global win
     for move in player_moves:
@@ -162,7 +188,8 @@ def win_ud(player_moves):
 
 # player wins from diagnal bottom left to top right
 
-
+# ER: Same as above, there's some duplication here between the diag victory
+# checks. Would be cool to limit it to a single function
 def win_diag1(player_moves):
     global win
     win_diag = [(0, 0), (1, 1), (2, 2)]
@@ -216,6 +243,8 @@ player_X_win_diag2 = [(2, 0), (1, 1), (0, 2)]
 test_moves = ['(0, 0)', '(1, 1)', '(0, 1)', '(1, 2)', '(0, 2)']
 create_board_lst()
 
+# ER: I like this structure! it's nice and clean. Might be good to
+# put this all in a main function. 
 while win == 0:
     board()
     # player_input = move
