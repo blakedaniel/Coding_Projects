@@ -1,8 +1,8 @@
 # feedback from Ethan
-# [] Delete commented code and keep in mind that printing variables is prefered
+# -- Delete commented code and keep in mind that printing variables is prefered
 # [] create class for global values to be passed around and used in functions
-# [] create loop to create board coordinates
-# [] learn about sets vs. lists
+# -- create loop to create board coordinates
+# -- learn about sets vs. lists
 # [] how would I approach the winning functions outside of try-except
 # [] combine winning functions into one main function
 
@@ -11,7 +11,7 @@
 import re
 
 n = tuple(range(0, 3))
-board_values = set([(x, y) for x in n for y in n])
+board_values =   [(x, y) for x in n for y in n]
 
 player_x_moves = []
 player_o_moves = []
@@ -102,6 +102,7 @@ def player_def():
 
 def player_move():
     global win
+    global player_input
     while True:
         try:
             player_input = input('Player ' + player + ', where would you like to go? format: x, y ')
@@ -116,9 +117,6 @@ def player_move():
         except Exception:
             print(player_input, 'is not a valid choice, please try again')
             continue
-    # ER: since we actually return the player_input here, it probably doesn't need to be global
-    # at all.
-    return player_input
 
 # remove player input from possible board values and add to player list
 
@@ -143,8 +141,6 @@ def win_lr(player_moves):
     for move in player_moves:
         x = move[0]
         y = move[1]
-        # ER: this definitely works but I think it's code that we expect to hit the error case
-        # a majority of times? might be worth thinking about how we can only check valid cases.
         try:
             player_moves.index((x, y + 1))
             player_moves.index((x, y + 2))
@@ -156,8 +152,6 @@ def win_lr(player_moves):
 
 # check if player won from up to down
 
-# ER: this code is really similar to the `win_lr` function above. Could we find a way to pull
-# out the duplicate code and reuse it?
 def win_ud(player_moves):
     global win
     for move in player_moves:
@@ -173,8 +167,6 @@ def win_ud(player_moves):
 
 # player wins from diagnal bottom left to top right
 
-# ER: Same as above, there's some duplication here between the diag victory
-# checks. Would be cool to limit it to a single function
 def win_diag1(player_moves):
     global win
     win_diag = [(0, 0), (1, 1), (2, 2)]
