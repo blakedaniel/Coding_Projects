@@ -7,16 +7,12 @@
 # [] combine winning functions into one main function
 
 
-
 # initialize
 import re
 
-# ER: Global values like the following can sometimes be hard to track well, or
-# really understand how they work. Would it be possible to create a class that
-# stores all these values, and pass that around to functions as necessary?
-# ER: could we create this with a loop, rather than hardcoding all the values?
-board_values = [(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1),
-                (2, 2)]
+n = tuple(range(0, 3))
+board_values = set([(x, y) for x in n for y in n])
+
 player_x_moves = []
 player_o_moves = []
 player_moves = []
