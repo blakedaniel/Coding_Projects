@@ -11,7 +11,12 @@
 import re
 
 n = tuple(range(0, 3))
+<<<<<<< Updated upstream
 board_values =   [(x, y) for x in n for y in n]
+=======
+board_values = [(x, y) for x in n for y in n]
+print(board_values)
+>>>>>>> Stashed changes
 
 player_x_moves = []
 player_o_moves = []
@@ -121,16 +126,20 @@ def player_move():
 # remove player input from possible board values and add to player list
 
 
-def player_placement(player_input):
+def player_placement():
+    global player_input
     placement = player_input
+<<<<<<< Updated upstream
     # ER: minor point, but: if board_values were a set rather than a list, this remove call would
     # be more performant. Not a big deal in tic tac toe, but for arbitrarily sized boards it could
     # matter :)
+=======
+    print(placement)
+>>>>>>> Stashed changes
     board_values.remove(placement)
     player_moves.append(placement)
     replace = board_lst.index((player_input, square))
     board_lst[replace] = (player_input, player_square)
-    return player_moves
 
 
 # check if player won from left to right
@@ -213,7 +222,7 @@ while win == False:
     display_board()
     player_def()
     player_move()
-    player_placement(player_input)
+    player_placement()
     win_lr(player_moves)
     win_ud(player_moves)
     win_diag1(player_moves)
