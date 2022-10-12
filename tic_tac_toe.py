@@ -1,10 +1,18 @@
+# feedback from Ethan
+# [] Delete commented code and keep in mind that printing variables is prefered
+# [] create class for global values to be passed around and used in functions
+# [] create loop to create board coordinates
+# [] learn about sets vs. lists
+# [] how would I approach the winning functions outside of try-except
+# [] combine winning functions into one main function
+
 
 # initialize
-# import tkinter
 import re
 
-board_values = [(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1),
-                (2, 2)]
+n = tuple(range(0, 3))
+board_values = set([(x, y) for x in n for y in n])
+
 player_x_moves = []
 player_o_moves = []
 player_moves = []
@@ -17,8 +25,6 @@ player_square = ''
 
 # list of possible board values, paired with apropriate board string
 board_lst = []
-
-# print(dir(board_values))
 
 # the move a play chooses, one for each player
 player_x_input = 'x input'
@@ -36,8 +42,8 @@ y = -1
 player_turn = 1
 game_count = 1
 
-# used to determin if somoen one to end game
-win = 0
+# used to determin if someone won to end game
+win = False
 
 # functions
 # create list of board values with coordinate pairings
@@ -48,11 +54,10 @@ def create_board_lst():
         board_lst.append((value, square))
     return board_lst
 
-# create visual board for playing
+# print visual board for playing
 
 
-def board():
-    # print('Board List', board_lst)
+def display_board():
     n3 = (3, 6, 9)
     m = 0
     print('   0', '  1', '  2')
@@ -93,15 +98,11 @@ def player_def():
 
 def player_move():
     global win
-    global player_input
-    # print('Remaining board options:', board_values)
     while True:
         try:
             player_input = input('Player ' + player + ', where would you like to go? format: x, y ')
-            # player_input = '(0, 1)'
             if player_input == 'quit':
-                global win
-                win = 1
+                win = True
                 player_input == board_values[0]
             else:
                 player_input = re.findall('[0-4]', player_input)
@@ -119,9 +120,7 @@ def player_move():
 def player_placement(player_input):
     placement = player_input
     board_values.remove(placement)
-    # print('Board Values: ', board_values)
     player_moves.append(placement)
-    # print('Player Moves: ', player_moves)
     replace = board_lst.index((player_input, square))
     board_lst[replace] = (player_input, player_square)
     return player_moves
@@ -138,7 +137,7 @@ def win_lr(player_moves):
         try:
             player_moves.index((x, y + 1))
             player_moves.index((x, y + 2))
-            win = 1
+            win = True
             print('Player', player, 'wins left to right!!')
         except Exception:
             None
@@ -155,7 +154,7 @@ def win_ud(player_moves):
         try:
             player_moves.index((x + 1, y))
             player_moves.index((x + 2, y))
-            win = 1
+            win = True
             print('Player', player, 'wins up and down!!')
         except Exception:
             None
@@ -170,7 +169,7 @@ def win_diag1(player_moves):
         player_moves.index(win_diag[0])
         player_moves.index(win_diag[1])
         player_moves.index(win_diag[2])
-        win = 1
+        win = True
         print('Player', player, 'wins by diagnal!!')
     except Exception:
         None
@@ -185,7 +184,7 @@ def win_diag2(player_moves):
         player_moves.index(win_diag[0])
         player_moves.index(win_diag[1])
         player_moves.index(win_diag[2])
-        win = 1
+        win = True
         print('Player', player, 'wins by diagnal!!')
     except Exception:
         None
@@ -194,43 +193,26 @@ def win_diag2(player_moves):
 # the game is a draw
 
 
-def draw(game_count):
+def draw():
     global win
     if len(board_values) < 1:
-        win = 1
-        print('Draw! No one wins')
+        win = True
+        print('Draw! Everyone wins!')
 
-# end game
-
-
-'''
-player_x_less_than_3 = [(0, 0), (0, 1)]
-player_x_win_lr = [(1, 0), (1, 1), (1, 2)]
-player_x_win_ud = [(2, 1), (1, 1), (0, 1)]
-player_x_win_diag1 = [(0, 0), (1, 1), (2, 2)]
-player_X_win_diag2 = [(2, 0), (1, 1), (0, 2)]
-'''
 
 # executing
 
-test_moves = ['(0, 0)', '(1, 1)', '(0, 1)', '(1, 2)', '(0, 2)']
 create_board_lst()
 
-while win == 0:
-    board()
-    # player_input = move
+while win == False:
+    display_board()
     player_def()
     player_move()
     player_placement(player_input)
     win_lr(player_moves)
-    # print('win_lr: ', win)
     win_ud(player_moves)
-    # print('win_ud: ', win)
     win_diag1(player_moves)
-    # print('win_diag1: ', win)
     win_diag2(player_moves)
-    # print('win_diag2: ', win)
-    # print('player x moves:', player_x_moves)
-    # print('player 0 moves:', player_o_moves)
+    draw()
 
-board()
+display_board()
