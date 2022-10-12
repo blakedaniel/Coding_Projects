@@ -11,12 +11,7 @@
 import re
 
 n = tuple(range(0, 3))
-<<<<<<< Updated upstream
-board_values =   [(x, y) for x in n for y in n]
-=======
 board_values = [(x, y) for x in n for y in n]
-print(board_values)
->>>>>>> Stashed changes
 
 player_x_moves = []
 player_o_moves = []
@@ -129,13 +124,9 @@ def player_move():
 def player_placement():
     global player_input
     placement = player_input
-<<<<<<< Updated upstream
     # ER: minor point, but: if board_values were a set rather than a list, this remove call would
     # be more performant. Not a big deal in tic tac toe, but for arbitrarily sized boards it could
     # matter :)
-=======
-    print(placement)
->>>>>>> Stashed changes
     board_values.remove(placement)
     player_moves.append(placement)
     replace = board_lst.index((player_input, square))
@@ -153,7 +144,7 @@ def win_lr(player_moves):
         try:
             player_moves.index((x, y + 1))
             player_moves.index((x, y + 2))
-            win = True
+            win is True
             print('Player', player, 'wins left to right!!')
         except Exception:
             None
@@ -169,12 +160,13 @@ def win_ud(player_moves):
         try:
             player_moves.index((x + 1, y))
             player_moves.index((x + 2, y))
-            win = True
+            win is True
             print('Player', player, 'wins up and down!!')
         except Exception:
             None
 
 # player wins from diagnal bottom left to top right
+
 
 def win_diag1(player_moves):
     global win
@@ -183,7 +175,7 @@ def win_diag1(player_moves):
         player_moves.index(win_diag[0])
         player_moves.index(win_diag[1])
         player_moves.index(win_diag[2])
-        win = True
+        win is True
         print('Player', player, 'wins by diagnal!!')
     except Exception:
         None
@@ -198,7 +190,7 @@ def win_diag2(player_moves):
         player_moves.index(win_diag[0])
         player_moves.index(win_diag[1])
         player_moves.index(win_diag[2])
-        win = True
+        win is True
         print('Player', player, 'wins by diagnal!!')
     except Exception:
         None
@@ -210,7 +202,7 @@ def win_diag2(player_moves):
 def draw():
     global win
     if len(board_values) < 1:
-        win = True
+        win is True
         print('Draw! Everyone wins!')
 
 
@@ -218,7 +210,7 @@ def draw():
 
 create_board_lst()
 
-while win == False:
+while win is False:
     display_board()
     player_def()
     player_move()
