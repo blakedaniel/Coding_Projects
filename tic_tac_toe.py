@@ -7,12 +7,12 @@
 # [] combine winning functions into one main function
 
 
-
 # initialize
 import re
 
-board_values = [(0, 0), (0, 1), (0, 2), (1, 0), (1, 1), (1, 2), (2, 0), (2, 1),
-                (2, 2)]
+n = tuple(range(0, 3))
+board_values = set([(x, y) for x in n for y in n])
+
 player_x_moves = []
 player_o_moves = []
 player_moves = []
