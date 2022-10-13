@@ -11,16 +11,11 @@
 import re
 
 
-class moves:
-
-    n = tuple(range(0, 3))
-    board_values = [(x, y) for x in n for y in n]
-    player_x_moves = []
-    player_o_moves = []
-    player_moves = []
-
-
-print(moves.n)
+n = tuple(range(0, 3))
+board_values = [(x, y) for x in n for y in n]
+player_x_moves = []
+player_o_moves = []
+player_moves = []
 
 # strings for making the board
 square = '[ ]'
