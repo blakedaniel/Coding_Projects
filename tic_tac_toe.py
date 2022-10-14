@@ -5,6 +5,8 @@
 # -- learn about sets vs. lists
 # [] how would I approach the winning functions outside of try-except
 # [] combine winning functions into one main function
+# [] switch from coordinates to simple 1 - 9, including num in board spot
+# []
 
 
 # initialize
