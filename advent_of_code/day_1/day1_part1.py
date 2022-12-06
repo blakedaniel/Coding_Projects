@@ -1,6 +1,6 @@
 # day1.py
 
-file = 'advent_of_code/day_1/input_part1.txt'
+file = 'GitHub/Coding_Projects/advent_of_code/day_1/input_part1.txt'
 fhand = open(file)
 
 
