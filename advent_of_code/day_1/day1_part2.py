@@ -1,7 +1,8 @@
 # day1_part2.py
 
-file = 'advent_of_code/day_1/input_part1.txt'
+file = 'GitHub/Coding_Projects/advent_of_code/day_1/input_part1.txt'
 fhand = open(file)
+
 
 def topThree(data):
     top_three_pack = [0, 0, 0]

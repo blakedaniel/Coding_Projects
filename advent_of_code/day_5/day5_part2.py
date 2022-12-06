@@ -1,14 +1,10 @@
 
-# tried = WFCGHBJZF
-# tried = WFCBHBJGC
-
 file = 'GitHub/Coding_Projects/advent_of_code/day_5/input_part1.txt'
 data = open(file)
-current_stacks = data.read(324)  # should be 324 for full text, 48 for test cases
-print(current_stacks)
+current_stacks = data.read(324)
 
 stacks = {}
-for stack in range(1, 10):  # change end number to 10 for full text, 4 for test cases
+for stack in range(1, 10):
     stacks[stack] = []
 
 count = 2
@@ -18,7 +14,6 @@ for chr in current_stacks:
         stacks[count / 4].append(chr)
 
     if chr == '\n':
-        # print(count)  # 36 chrs per line
         count = 2
 
 for line in data:
