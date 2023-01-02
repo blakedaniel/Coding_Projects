@@ -70,13 +70,15 @@ def curTree(data):
     for line in data:
         col = 0
         for tree in line:
-            tree = tree
+            # tree = tree
             cur_tree = Tree(tree, row, col)
             rows = all_trees['rows'][row]
             cur_tree.left = rows[:col]
+            cur_tree.left.reverse()
             cur_tree.right = rows[col + 1:]
             cols = all_trees['cols'][col]
             cur_tree.up = cols[:row]
+            cur_tree.up.reverse()
             cur_tree.down = cols[row + 1:]
             cur_tree.on_edge = edgeCheck(cur_tree)
             cur_tree.visible = visibleCheck(cur_tree)
@@ -88,8 +90,34 @@ def curTree(data):
 current_trees = curTree(all_trees['rows'])
 
 
-count = 0
-for tree in current_trees:
-    if tree.visible == True:
-        count += 1
-        print(tree, count)
+def scenicScore(tree=Tree(0, 0, 0)):
+    scenic_score = 1
+    sides = (tree.up, tree.left, tree.down, tree.right)
+    # print(sides)
+    for side in sides:
+        dist_to_edge = len(side)
+        dist_to_tall = 0
+        for side_tree in side:
+            dist_to_tall += 1
+            if side_tree >= tree.height:
+                side_score = min(dist_to_edge, dist_to_tall)
+                break
+            elif side_tree < tree.height:
+                side_score = dist_to_edge
+                continue
+        # print('SIDE SCORE:', side_score, 'TREE HEIGHT:', tree.height)
+        scenic_score *= side_score
+    return scenic_score
+
+
+def highestScore():
+    n = 0
+    highest_score = 0
+    for tree in current_trees:
+        if tree.on_edge == False:
+            n += 1
+            if highest_score < scenicScore(tree):
+                highest_score = scenicScore(tree)
+    return highest_score
+
+highestScore()
